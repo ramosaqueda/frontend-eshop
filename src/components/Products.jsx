@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { getProducts } from '../functions/product';
 
+import { NavLink } from 'react-router-dom';
+
 const Products = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(data);
@@ -67,9 +69,12 @@ const Products = () => {
                     <h5 className="card-title mb-0">{product.name}</h5>
                     <p className="card-text lead fw-bold">${product.price}</p>
                     <p className="card-text">{product.description}</p>
-                    <a href="/" className="btn btn-outline-dark">
+                    <NavLink
+                      to={`/product/${product.slug}`}
+                      className="btn btn-outline-dark"
+                    >
                       Lo quiero!
-                    </a>
+                    </NavLink>
                   </div>
                 </div>
               </div>
