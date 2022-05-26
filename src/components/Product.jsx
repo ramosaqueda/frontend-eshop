@@ -8,17 +8,16 @@ const Product = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const obtieneProducto = () => {
+    const obtieneProducto = async () => {
       setLoading(true);
-
-      getProduct(slug).then((res) => {
+      await getProduct(slug).then((res) => {
         setProduct(res.data);
-        setLoading(false);        
+        console.log(product);
+        setLoading(false);
       });
-      
     };
     obtieneProducto();
-  });
+  }, [slug]);
 
   const Loading = () => {
     return <>...Loading</>;
@@ -31,9 +30,14 @@ const Product = () => {
           <img
             src={product.pimage}
             alt={product.title}
-            height="150px"
-            width="150px"
+            height="450px"
+            width="450px"
           />
+        </div>
+        <div className="col-md-6">
+          <h4 className="text-uppercase text-black-5">{product.name}</h4>
+          <h1 className="display-5">{product.name}</h1>
+          <p className="lead">Rating</p>
         </div>
       </>
     );
