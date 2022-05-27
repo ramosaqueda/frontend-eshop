@@ -5,7 +5,13 @@ import Product from './components/Product';
 import Homepage from './pages/homepage';
 import Footer from './components/Footer';
 import Cart from './components/Cart';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Checkout from './components/Checkout';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from 'react-router-dom';
 
 function App() {
   return (
@@ -17,6 +23,7 @@ function App() {
         <Route path="/product/:slug" element={<Product />} />
 
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
 
       <Footer />

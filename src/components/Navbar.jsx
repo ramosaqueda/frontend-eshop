@@ -1,16 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Login from './forms/Login';
+import Register from './forms/Register';
 
 export const Navbar = () => {
   const state = useSelector((state) => state.CartReducer);
-  console.log(state);
+
   return (
-    <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
+    <>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-3 shadow-sm">
         <div className="container">
-          <NavLink className="navbar-brand fw-bold fs=34" to="#">
-            DecoMaderas
+          <NavLink className="navbar-brand fw-bold fs=34 mx-auto" to="/">
+            DECOMADERAS La Serena
           </NavLink>
           <button
             className="navbar-toggler"
@@ -26,19 +28,13 @@ export const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <NavLink className="nav-link active" aria-current="page" to="/">
+                <NavLink className="nav-link" aria-current="page" to="/">
                   Home
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/products">
                   Prodcutos
-                </NavLink>
-              </li>
-
-              <li className="nav-item">
-                <NavLink className="nav-link" to="#">
-                  Categorias
                 </NavLink>
               </li>
 
@@ -50,24 +46,16 @@ export const Navbar = () => {
 
               <li className="nav-item">
                 <NavLink className="nav-link" to="#">
-                  contactos
+                  Hablemos
                 </NavLink>
               </li>
             </ul>
             <div className="buttons">
               <div className="button btn">
-                {' '}
-                <NavLink to="/login" className="btn btn-outline-dark">
-                  {' '}
-                  <i className="fa fa-sign-in me-1"></i>
-                  Login
-                </NavLink>
-                <NavLink to="/register" className="btn btn-outline-dark ms-2">
-                  {' '}
-                  <i className="fa fa-user-plus me-1"></i>
-                  Register
-                </NavLink>
-                <NavLink to="/cart" className="btn btn-outline-dark ms-2">
+                <Login />
+                <Register />
+
+                <NavLink to="/cart" className="btn btn-outline-warning ms-2">
                   {' '}
                   <i className="fa fa-shopping-cart"></i>
                   Cart({state.length})
@@ -77,6 +65,6 @@ export const Navbar = () => {
           </div>
         </div>
       </nav>
-    </div>
+    </>
   );
 };
