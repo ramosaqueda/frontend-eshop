@@ -1,5 +1,6 @@
 import { cleanup } from '@testing-library/react';
 import React, { useState, useEffect } from 'react';
+
 import Skeleton from 'react-loading-skeleton';
 import { getProducts } from '../functions/product';
 
@@ -9,7 +10,6 @@ const Products = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(data);
   const [loading, setLoading] = useState(false);
-  let componentMounted = true;
 
   useEffect(() => {
     const loadProducts = () => {
@@ -49,7 +49,7 @@ const Products = () => {
           </button>
           <button
             className="btn btn btn-outline-dark me-2"
-            onClick={() => filterByCategory('6256f5ac00c1ae2c65ed39e1')}
+            onClick={() => filterByCategory('625a270c9ed97f60a8ce653a')}
           >
             MESAS
           </button>
@@ -60,7 +60,7 @@ const Products = () => {
               <div className="col-md-3 mb-4">
                 <div className="card h-100 text-center p-4" key={product.id}>
                   <img
-                    src={product.pimage}
+                    src={`/assets/images/${product.pimage}`}
                     className="card-img-top"
                     alt="..."
                     height="250px"
