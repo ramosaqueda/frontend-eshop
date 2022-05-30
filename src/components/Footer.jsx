@@ -1,136 +1,133 @@
-import {
-  Facebook,
-  Instagram,
-  MailOutline,
-  Phone,
-  Pinterest,
-  Room,
-  Twitter,
-} from '@mui/icons-material';
-import styled from 'styled-components';
-import { mobile } from '../responsive';
-
-const Container = styled.div`
-  display: flex;
-  ${mobile({ flexDirection: 'column' })}
-`;
-
-const Left = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-`;
-
-const Logo = styled.h1``;
-
-const Desc = styled.p`
-  margin: 20px 0px;yarn add @mui/material @mui/styled-engine-sc styled-components
-
-`;
-
-const SocialContainer = styled.div`
-  display: flex;
-`;
-
-const SocialIcon = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: white;
-  background-color: #${(props) => props.color};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 20px;
-`;
-
-const Center = styled.div`
-  flex: 1;
-  padding: 20px;
-  ${mobile({ display: 'none' })}
-`;
-
-const Title = styled.h3`
-  margin-bottom: 30px;
-`;
-
-const List = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const ListItem = styled.li`
-  width: 50%;
-  margin-bottom: 10px;
-`;
-
-const Right = styled.div`
-  flex: 1;
-  padding: 20px;
-  ${mobile({ backgroundColor: '#fff8f8' })}
-`;
-
-const ContactItem = styled.div`
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-`;
-
-const Payment = styled.img`
-  width: 50%;
-`;
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <Container>
-      <Left>
-        <Logo>DecoMaderas</Logo>
-        <Desc>
-          Somos una empresa regional, artesanal y dedicada 100% a Tomar Cerveza
-          y comer asados.
-        </Desc>
-        <SocialContainer>
-          <SocialIcon color="3B5999">
-            <Facebook />
-          </SocialIcon>
-          <SocialIcon color="E4405F">
-            <Instagram />
-          </SocialIcon>
-          <SocialIcon color="55ACEE">
-            <Twitter />
-          </SocialIcon>
-          <SocialIcon color="E60023">
-            <Pinterest />
-          </SocialIcon>
-        </SocialContainer>
-      </Left>
-      <Center>
-        <Title>Accesos mas utilizados</Title>
-        <List>
-          <ListItem>Home</ListItem>
-          <ListItem>Cart</ListItem>
-          <ListItem>Liquidaciòn/</ListItem>
-        </List>
-      </Center>
-      <Right>
-        <Title>Contact</Title>
-        <ContactItem>
-          <Room style={{ marginRight: '10px' }} /> Avenida Las Negritas SN, Cruz
-          de Caña. coquimbo
-        </ContactItem>
-        <ContactItem>
-          <Phone style={{ marginRight: '10px' }} /> +1 234 56 78
-        </ContactItem>
-        <ContactItem>
-          <MailOutline style={{ marginRight: '10px' }} /> contact@maderas.cl
-        </ContactItem>
-        <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
-      </Right>
-    </Container>
+    <>
+      {/* Footer */}
+      <footer className="bg-dark text-center text-white">
+        {/* Grid container */}
+        <div className="container p-4">
+          {/* Section: Social media */}
+          <section className="mb-4">
+            {/* Facebook */}
+            <NavLink
+              className="btn btn-outline-light btn-floating m-1"
+              to="#!"
+              role="button"
+            >
+              <i className="fa fa-facebook-f"></i>
+            </NavLink>
+
+            {/* Twitter */}
+            <NavLink
+              className="btn btn-outline-light btn-floating m-1"
+              to="#!"
+              role="button"
+            >
+              <i className="fa fa-twitter"></i>
+            </NavLink>
+
+            {/* Google */}
+            <NavLink
+              className="btn btn-outline-light btn-floating m-1"
+              to="#!"
+              role="button"
+            >
+              <i className="fa fa-google"></i>
+            </NavLink>
+
+            {/* Instagram */}
+            <NavLink
+              className="btn btn-outline-light btn-floating m-1"
+              to="#!"
+              role="button"
+            >
+              <i className="fa fa-instagram"></i>
+            </NavLink>
+          </section>
+          {/* Section: Social media */}
+
+          {/* Section: Text */}
+          <section className="mb-4">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
+              distinctio earum repellat quaerat voluptatibus placeat nam,
+              commodi optio pariatur est quia magnam eum harum corrupti dicta,
+              aliquam sequi voluptate quas.
+            </p>
+          </section>
+          {/* Section: Text */}
+
+          {/* Section: Links */}
+          <section className="">
+            {/*Grid row*/}
+            <div className="row">
+              {/*Grid column*/}
+              <div className="col-lg-3 col-md-3 mb-3 mb-md-0">
+                <h3 className="text-uppercase">Decomaderas</h3>
+                <h5 className="text-uppercase">La Serena</h5>
+              </div>
+              {/*Grid column*/}
+
+              {/*Grid column*/}
+              <div className="col-lg-3 col-md-3 mb-3 mb-md-0 text-start">
+                <h5 className="text-uppercase">Información</h5>
+
+                <ul className="list-unstyled mb-0">
+                  <li>
+                    <NavLink to="#!" className="text-white">
+                      Despachos
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/products" className="text-white">
+                      Productos
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/categories" className="text-white">
+                      Categorias
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/about" className="text-white">
+                      Acerca de nosotros
+                    </NavLink>
+                  </li>
+                </ul>
+              </div>
+              {/*Grid column*/}
+
+              {/*Grid column*/}
+              <div className="col-lg-3 col-md-3 mb-3 mb-md-0">
+                <h5 className="text-uppercase">Medios de Pago</h5>
+
+                <div>
+                  <img src="/assets/images/pay/1.Webpay_FB_80px.svg" alt="" />
+                </div>
+                <div>
+                  <img src="/assets/images/pay/mercado-pago.svg" alt="" />
+                </div>
+              </div>
+              {/*Grid column*/}
+            </div>
+            {/*Grid row*/}
+          </section>
+          {/* Section: Links */}
+        </div>
+        {/* Grid container */}
+
+        {/* Copyright */}
+        <div className="text-center p-3">
+          © 2020 Decomaderas:
+          <NavLink className="text-white" to="#">
+            By Rafael Ramos Aqueda
+          </NavLink>
+        </div>
+        {/* Copyright */}
+      </footer>
+    </>
   );
 };
 

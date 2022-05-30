@@ -1,6 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getCarrusel } from '../functions/carrusel';
 
 const Carrusel = () => {
+  const [carrusel, setCarrusel] = useState([]);
+
+  useEffect(() => {
+    loadCarrusel();
+  }, []);
+
+  const loadCarrusel = () => {
+    getCarrusel().then((res) => {
+      setCarrusel(res.data);
+    });
+  };
+
   return (
     <>
       <div
@@ -31,54 +44,22 @@ const Carrusel = () => {
           ></button>
         </div>
         <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img
-              src="../assets/images/carrusel/2.jpg"
-              className="d-block w-100"
-              alt="..."
-              height="600px"
-            />
-            <div className="carousel-caption d-none d-md-block">
-              <h5 className="card-title display-3 fw-bolder mb-0">
-                First slide label
-              </h5>
-              <p>
-                Some representative placeholder content for the first slide.
-              </p>
+          {carrusel.map((carr) => (
+            <div className={`carousel-item ${carr.active}`}>
+              <img
+                src={`${carr.img}`}
+                className="d-block w-100"
+                alt={carr.title}
+                height="600px"
+              />
+              <div className="carousel-caption d-none d-md-block">
+                <h5 className="card-title display-3 fw-bolder mb-0">
+                  {carr.title}
+                </h5>
+                <p>{carr.description}</p>
+              </div>
             </div>
-          </div>
-          <div className="carousel-item">
-            <img
-              src="../assets/images/carrusel/3.jpg"
-              className="d-block w-100"
-              alt="..."
-              height="600px"
-            />
-            <div className="carousel-caption d-none d-md-block">
-              <h5 className="card-title display-3 fw-bolder mb-0">
-                Second slide label
-              </h5>
-              <p>
-                Some representative placeholder content for the second slide.
-              </p>
-            </div>
-          </div>
-          <div className="carousel-item">
-            <img
-              src="../assets/images/carrusel/1.jpg"
-              className="d-block w-100"
-              alt="..."
-              height="600px"
-            />
-            <div className="carousel-caption d-none d-md-block">
-              <h5 className="card-title display-3 fw-bolder mb-0">
-                Third slide label
-              </h5>
-              <p>
-                Some representative placeholder content for the third slide.
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
         <button
           className="carousel-control-prev"

@@ -3,10 +3,14 @@ import React, { useState, useEffect } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { getProducts } from '../functions/product';
 
+import { getCategories } from '../functions/category';
+
 import { NavLink } from 'react-router-dom';
 
 const Products = () => {
   const [data, setData] = useState([]);
+  const [cateorias, setCategorias] = useState([]);
+
   const [filter, setFilter] = useState(data);
   const [loading, setLoading] = useState(false);
 
@@ -19,6 +23,14 @@ const Products = () => {
         setLoading(false);
       });
     };
+
+    const loadCategories = () => {
+      getCategories().then((res) => {
+        setCategorias(res.data);
+      });
+    };
+
+    loadCategories();
     loadProducts();
   }, []);
 
@@ -36,23 +48,31 @@ const Products = () => {
     setFilter(updateList);
   };
 
+  const ShowCaterorias = () => {
+    return (
+      <div className="button d-flex justify-content-center mb-5 pb-5">
+        <button
+          className="btn btn btn-outline-dark me-2"
+          onClick={() => setFilter(data)}
+        >
+          TODOS
+        </button>
+        {cateorias.map((cat) => (
+          <button
+            className="btn btn btn-outline-dark me-2"
+            onClick={() => filterByCategory(cat._id)}
+          >
+            {cat.name}
+          </button>
+        ))}
+      </div>
+    );
+  };
+
   const ShowProducts = () => {
     return (
       <>
-        <div className="button d-flex justify-content-center mb-5 pb-5">
-          <button
-            className="btn btn btn-outline-dark me-2"
-            onClick={() => setFilter(data)}
-          >
-            ALL
-          </button>
-          <button
-            className="btn btn btn-outline-dark me-2"
-            onClick={() => filterByCategory('625a270c9ed97f60a8ce653a')}
-          >
-            MESAS
-          </button>
-        </div>
+        <ShowCaterorias />
         {filter.map((product) => {
           return (
             <>

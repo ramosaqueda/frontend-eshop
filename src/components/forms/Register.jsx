@@ -7,7 +7,7 @@ const Register = () => {
       <>
         <button
           type="button"
-          className="btn btn-outline-primary ms-auto"
+          className="btn btn-outline-warning ms-auto"
           data-bs-toggle="modal"
           data-bs-target="#loginModal"
         >
