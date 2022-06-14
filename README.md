@@ -11,7 +11,7 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-##API
+## Consumo de API
 Las API utilizadas son creación propia, obtnidas de SERVER creado en el curso de NodeJS, además de API pública para la obtención de comunas provistas por el Gobierno de Chile.
 El consumo de las APIS fue desarrollado utilizando AXIOS
 
