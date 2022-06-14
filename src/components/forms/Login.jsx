@@ -1,10 +1,131 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Login = () => {
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { auth } from '../../firebase-config';
+
+import { createOrUpdateUser, currentUser } from '../../functions/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+
+import { useDispatch, useSelector } from 'react-redux';
+
+const Login = ({ history }) => {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [loading, setLoading] = useState(false);
+
+  let dispatch = useDispatch();
+
+  const roleBasedRedirect = (res) => {
+    if (res.data.role === 'admin') {
+      history.push('/admin/adminpage');
+    } else {
+      history.push('/');
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const result = await signInWithEmailAndPassword(auth, email, password);
+
+      const { user } = result;
+      const idTokenResult = await user.getIdTokenResult();
+
+      currentUser(idTokenResult.token)
+        .then((res) => {
+          dispatch({
+            type: 'LOGGED_IN_USER',
+            payload: {
+              name: res.data.name,
+              email: res.data.email,
+              token: idTokenResult.token,
+              role: res.data.role,
+              _id: res.data._id,
+            },
+          });
+
+          //roleBasedRedirect(res);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      toast.error(error.message);
+      setLoading(false);
+    }
+  };
+
+  /*const googleLogin = async () => {
+    auth
+      .signInWithPopup(googleAuthProvider)
+      .then(async (result) => {
+        const { user } = result;
+        const idTokenResult = await user.getIdTokenResult();
+        createOrUpdateUser(idTokenResult.token)
+          .then((res) => {
+            dispatch({
+              type: 'LOGGED_IN_USER',
+              payload: {
+                name: res.data.name,
+                email: res.data.email,
+                token: idTokenResult.token,
+                role: res.data.role,
+                _id: res.data._id,
+              },
+            });
+            roleBasedRedirect(res);
+          })
+          .catch((err) => console.log(err));
+        //history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message);
+      });
+  };
+  */
+
+  const loginForm = () => (
+    <form onSubmit={handleSubmit}>
+      <div className="mb-3">
+        <label htmlFor="InputEmail1" className="form-label">
+          Email
+        </label>
+        <input
+          type="email"
+          className="form-control"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          id="InputEmail1"
+          aria-describedby="emailHelp"
+        />
+        <div id="emailHelp" className="form-text"></div>
+      </div>
+      <div className="mb-3">
+        <label htmlFor="InputPassword1" className="form-label">
+          Password
+        </label>
+        <input
+          type="password"
+          className="form-control"
+          id="InputPassword1"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
+
+      <button type="submit" className="btn btn-primary w-100 mt-5">
+        Ingresar
+      </button>
+    </form>
+  );
+
   return (
     <>
       {' '}
       <>
+        <ToastContainer />
         <button
           type="button"
           className="btn btn-outline-warning ms-auto"
@@ -37,50 +158,13 @@ const Login = () => {
                 ></button>
               </div>
               <div className="modal-body">
+                {loginForm()}
+
                 <button className="btn btn-primary w-100 mb-4">
                   {' '}
                   <span className="fa fa-google me-2"></span>
                   Ingresar con Google
                 </button>
-                <form>
-                  <div className="mb-3">
-                    <label htmlFor="InputEmail1" className="form-label">
-                      Email address
-                    </label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="InputEmail1"
-                      aria-describedby="emailHelp"
-                    />
-                    <div id="emailHelp" className="form-text">
-                      We'll never share your email with anyone else.
-                    </div>
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="InputPassword1" className="form-label">
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="InputPassword1"
-                    />
-                  </div>
-                  <div className="mb-3 form-check">
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="Check1"
-                    />
-                    <label className="form-check-label" htmlFor="Check1">
-                      Check me out
-                    </label>
-                  </div>
-                  <button type="submit" className="btn btn-primary w-100 mt-5">
-                    Submit
-                  </button>
-                </form>
               </div>
             </div>
           </div>

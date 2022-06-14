@@ -71,8 +71,21 @@ const Product = () => {
             <i className="fa-solid fa fa-cart-plus px-4 my-2"></i>
             Agregar
           </button>
-          <NavLink to="/cart" className="btn btn-success ms-2 px-3 my-2">
+
+          <NavLink
+            to="/cart"
+            className="btn btn-outline-success  ms-2 px-4 my-2"
+          >
+            <i className="fa-duotone fa fa-cart-plus px-4 my-2"></i>
             Ir al carrito
+          </NavLink>
+
+          <NavLink
+            to="/productos"
+            className="btn btn-outline-dark  ms-2 px-4 my-2"
+          >
+            <i className="fa-solid fa fa-rotate-left px-4 my-2"></i>
+            Seguir Comprando
           </NavLink>
         </div>
       </>

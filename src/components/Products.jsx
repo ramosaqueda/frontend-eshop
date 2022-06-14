@@ -42,9 +42,8 @@ const Products = () => {
     );
   };
 
-  const filterByCategory = (cat) => {
-    const updateList = data.filter((x) => x.category._id === cat);
-    console.log(data);
+  const filterByCategory = (id) => {
+    const updateList = data.filter((x) => x.category._id === id);
     setFilter(updateList);
   };
 
@@ -109,9 +108,7 @@ const Products = () => {
       <div className="container">
         <div className="row">
           <div className="col-12 mb-5">
-            <h1 className="display-6 fw-bolder text-center">
-              Productos Destacados
-            </h1>
+            <h1 className="display-6 fw-bolder text-center">Productos</h1>
           </div>
           <div className="row justify-content-center">
             {loading ? <Loading /> : <ShowProducts />}

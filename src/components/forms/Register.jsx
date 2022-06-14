@@ -1,6 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { auth } from '../../firebase-config';
 
-const Register = () => {
+import { sendSignInLinkToEmail } from 'firebase/auth';
+import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+
+const Register = ({ history }) => {
+  const [email, setEmail] = useState('');
+  const { user } = useSelector((state) => ({ ...state }));
+
+  useEffect(() => {
+    if (user && user.token) history.push('/');
+  }, [history, user]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const config = {
+      url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
+      handleCodeInApp: true,
+    };
+    await sendSignInLinkToEmail(auth, email, config);
+    toast.success(
+      `Un correo ha sido enviado a ${email}. haga click en el Link para completar confirmación`
+    );
+    window.localStorage.setItem('emailForRegistration', email);
+    setEmail('');
+  };
+
+  const registerForm = () => (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="email"
+        className="form-control"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder={process.env.REACT_APP_REGISTER_REDIRECT_URL}
+        autoFocus
+      />
+
+      <br />
+      <button type="submit" className="btn btn-raised">
+        Register
+      </button>
+    </form>
+  );
   return (
     <>
       {' '}
@@ -9,16 +52,16 @@ const Register = () => {
           type="button"
           className="btn btn-outline-warning ms-auto"
           data-bs-toggle="modal"
-          data-bs-target="#loginModal"
+          data-bs-target="#registerModal"
         >
           {' '}
           <span className="fa fa-user-plus me-1"></span>
-          Register
+          Registrese
         </button>
 
         <div
           className="modal fade"
-          id="loginModal"
+          id="registerModal"
           tabIndex="-1"
           aria-labelledby="ModalLabel"
           aria-hidden="true"
@@ -27,7 +70,7 @@ const Register = () => {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="ModalLabel">
-                  Login
+                  Registro
                 </h5>
                 <button
                   type="button"
@@ -36,52 +79,7 @@ const Register = () => {
                   aria-label="Close"
                 ></button>
               </div>
-              <div className="modal-body">
-                <button className="btn btn-primary w-100 mb-4">
-                  {' '}
-                  <span className="fa fa-google me-2"></span>
-                  Ingresar con Google
-                </button>
-                <form>
-                  <div className="mb-3">
-                    <label htmlFor="InputEmail1" className="form-label">
-                      Email address
-                    </label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="InputEmail1"
-                      aria-describedby="emailHelp"
-                    />
-                    <div id="emailHelp" className="form-text">
-                      We'll never share your email with anyone else.
-                    </div>
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="InputPassword1" className="form-label">
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="InputPassword1"
-                    />
-                  </div>
-                  <div className="mb-3 form-check">
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="Check1"
-                    />
-                    <label className="form-check-label" htmlFor="Check1">
-                      Check me out
-                    </label>
-                  </div>
-                  <button type="submit" className="btn btn-primary w-100 mt-5">
-                    Submit
-                  </button>
-                </form>
-              </div>
+              <div className="modal-body">{registerForm()}</div>
             </div>
           </div>
         </div>
