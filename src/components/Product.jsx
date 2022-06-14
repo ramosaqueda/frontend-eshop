@@ -94,7 +94,7 @@ const Product = () => {
   return (
     <div>
       {' '}
-      <div className="container py-5">
+      <div className="container py-5 " id="productModal">
         {' '}
         <div className="row py-4">
           {loading ? <Loading /> : <ShowProduct />}

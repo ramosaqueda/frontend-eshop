@@ -1,4 +1,5 @@
 import './App.css';
+
 import { Navbar } from './components/Navbar';
 import Products from './components/Products';
 import Product from './components/Product';
@@ -13,6 +14,8 @@ import About from './pages/about';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import RegisterComplete from './components/RegisterComplete';
+import { Suspense, lazy } from 'react';
+const ProductsDest = lazy(() => import('./components/ProductsDest'));
 
 function App() {
   return (
@@ -27,9 +30,12 @@ function App() {
 
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
+
         <Route path="/about" element={<About />} />
       </Routes>
-
+      <Suspense fallback={<div>Loading...</div>}>
+        <ProductsDest />
+      </Suspense>
       <Footer />
     </>
   );

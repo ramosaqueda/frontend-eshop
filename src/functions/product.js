@@ -35,7 +35,7 @@ export const getProducts = async (sort, order, page) =>
   });
 
 export const getProductsPopulars = async (page) =>
-  await axios.get(`${process.env.REACT_APP_API}/popular/10`);
+  await axios.get(`${process.env.REACT_APP_API}/popular/4`);
 
 export const getProductsByCategory = async (page) =>
   await axios.get(`${process.env.REACT_APP_API}/`);
