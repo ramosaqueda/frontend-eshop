@@ -34,7 +34,7 @@ const Register = ({ history }) => {
         className="form-control"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder={process.env.REACT_APP_REGISTER_REDIRECT_URL}
+        placeholder="ingrese su correo "
         autoFocus
       />
 
