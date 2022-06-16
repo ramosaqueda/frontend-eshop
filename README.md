@@ -12,7 +12,18 @@ Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ## Consumo de API
-Las API utilizadas son creación propia, obtnidas de SERVER creado en el curso de NodeJS, además de API pública para la obtención de comunas provistas por el Gobierno de Chile.
+Las API utilizadas son de creación propia, obtenidas del Backend creado en el curso de NodeJS en Escalab, esta alojado en Heroku, además de API pública para la obtención de comunas provistas por el Gobierno de Chile.
 El consumo de las APIS fue desarrollado utilizando AXIOS
+
+## Patrones utilizados.
+De contexto , FLUX and HOC  
+
+##Hooks
+usestate and useeffects
+
+## Mantenciones Necesarias.
+Se debe realizar ajustes en backend para el registro de clientes y el consumo de la API del porta de pago.
+
+
 
 
