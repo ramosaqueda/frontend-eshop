@@ -7,11 +7,7 @@ import { getProductsPopulars } from '../functions/product';
 //import { getCategories } from '../functions/category';
 import Product from './Product';
 
-import { NavLink } from 'react-router-dom';
-
 const ProductsDest = () => {
-  const navigate = useNavigate();
-
   const [data, setData] = useState([]);
   const [mdl, SetMdl] = useState(false);
   const [slg, SetSlg] = useState();
