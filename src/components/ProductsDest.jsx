@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Skeleton from 'react-loading-skeleton';
 import { getProductsPopulars } from '../functions/product';
 
-import { getCategories } from '../functions/category';
+//import { getCategories } from '../functions/category';
 import Product from './Product';
 
 import { NavLink } from 'react-router-dom';
 
 const ProductsDest = () => {
+  const navigate = useNavigate();
+
   const [data, setData] = useState([]);
+  const [mdl, SetMdl] = useState(false);
+  const [slg, SetSlg] = useState();
 
   const [filter, setFilter] = useState(data);
   const [loading, setLoading] = useState(false);
@@ -33,6 +38,12 @@ const ProductsDest = () => {
         <Skeleton height={350} />
       </div>
     );
+  };
+
+  const handleClick = (sl) => {
+    //return <product />;
+    SetMdl(true);
+    SetSlg(sl);
   };
 
   const ShowProducts = () => {
@@ -63,12 +74,15 @@ const ProductsDest = () => {
                     <p className="card-text lead fw-bold">${product.price}</p>
                     <p className="card-text">{product.description}</p>
 
-                    <NavLink
-                      to={`/product/${product.slug}`}
-                      className="btn btn-outline-dark"
+                    <button
+                      className=" btn btn-outline-dark"
+                      onClick={() => handleClick(product.slug)}
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
                     >
+                      {' '}
                       Ver Producto
-                    </NavLink>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -90,6 +104,46 @@ const ProductsDest = () => {
           </div>
           <div className="row justify-content-center">
             {loading ? <Loading /> : <ShowProducts />}
+          </div>
+
+          <div
+            className="modal fade"
+            id="exampleModal"
+            tabIndex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div className="modal-dialog modal-xl">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalLabel">
+                    {slg}
+                  </h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  {mdl ? (
+                    <Product slug={slg} />
+                  ) : (
+                    '<LoginButton onClick={this.handleLoginClick} '
+                  )}
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cerrar
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

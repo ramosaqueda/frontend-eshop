@@ -1,12 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { addCart, deleteCart } from '../redux/actions';
+import { addCart } from '../redux/actions';
 import { NavLink } from 'react-router-dom';
 import { getProduct } from '../functions/product';
 import Skeleton from 'react-loading-skeleton';
-const Product = () => {
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const Product = (props) => {
   const { slug } = useParams();
+  console.log(typeof slug);
+  let name = '';
+  if (typeof slug === 'string') {
+    name = slug;
+  } else {
+    name = props.slug;
+  }
+
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -14,19 +26,23 @@ const Product = () => {
 
   const addProduct = (product) => {
     dispatch(addCart(product));
+    toast.success(`Producto ${product.name}.  fue agregado con éxito`);
   };
 
   useEffect(() => {
+    //setName(slug);
+
     const obtieneProducto = async () => {
       setLoading(true);
-      await getProduct(slug).then((res) => {
+
+      await getProduct(name).then((res) => {
         setProduct(res.data);
-        console.log(product);
         setLoading(false);
       });
     };
+
     obtieneProducto();
-  }, [slug]);
+  }, [name, slug, props.slug]);
 
   const Loading = () => {
     return (
@@ -94,7 +110,7 @@ const Product = () => {
   return (
     <div>
       {' '}
-      <div className="container py-5 " id="productModal">
+      <div className="container py-5 ">
         {' '}
         <div className="row py-4">
           {loading ? <Loading /> : <ShowProduct />}
